@@ -356,3 +356,100 @@ footer {
     grid-template-columns: 1fr;
   }
 }
+
+/* Educational Tip Styles */
+.educational-tip {
+  margin-top: 20px;
+}
+
+.tip-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 25px;
+  border-radius: 15px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.tip-category {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.tip-text {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.new-tip-btn {
+  background: rgba(255, 255, 255, 0.9);
+  color: #764ba2;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.new-tip-btn:hover {
+  background: white;
+  transform: translateY(-2px);
+}
+
+/* Risk Indicator Styles */
+.risk-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 15px 0;
+}
+
+.risk-gauge {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin-bottom: 10px;
+}
+
+.gauge-background {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #f0f0f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.gauge-fill {
+  position: absolute;
+  height: 100%;
+  border-radius: 50%;
+  left: 0;
+  top: 0;
+  transition: width 1s ease-in-out;
+}
+
+.risk-score-number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.risk-label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
