@@ -11,6 +11,8 @@ services:
       - "5000:5000"   # Maps host port 5000 to container port 5000 (http://localhost:5000)
     environment:
       - FLASK_ENV=development
+      - FLASK_ENV=production
+      - DATABASE_URL=${DATABASE_URL}
     volumes:
       - ./backend:/app  # Mounts your local backend code into the container for live updates
     networks:
@@ -25,6 +27,7 @@ services:
     ports:
       - "3000:3000"   # Maps host port 3000 to container port 3000 (http://localhost:3000)
     environment:
+      - REACT_APP_API_URL=https://your-backend-service.up.railway.app
       - REACT_APP_API_URL=http://backend:5000 # Critical: Tells React where to find the backend *inside* the Docker network
     volumes:
       - ./frontend:/app
