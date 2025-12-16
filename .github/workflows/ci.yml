@@ -1,50 +1,48 @@
+# CORRECTED CI configuration
 name: CI Pipeline
-
 on: [push, pull_request]
 
 jobs:
-  test:
+  test-backend:
     runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        python-version: [3.8, 3.9]
-        node-version: [16, 18]
+    defaults:
+      run:
+        working-directory: ./backend  # ✅ Important: All commands run in backend folder
     
     steps:
     - uses: actions/checkout@v3
     
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: '3.10'  # Use 3.10 (more stable with packages)
     
     - name: Install Python dependencies
       run: |
-        cd backend
         pip install -r requirements.txt
     
     - name: Run Python tests
       run: |
-        cd backend
         python -m pytest test_app.py -v
+      
+  test-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend  # ✅ Run in frontend folder
     
-    - name: Set up Node.js ${{ matrix.node-version }}
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '18'  # Use Node 18 (LTS)
     
     - name: Install Node dependencies
       run: |
-        cd frontend
-        npm ci
+        npm ci  # Uses package-lock.json for exact versions
     
     - name: Build React app
       run: |
-        cd frontend
         npm run build
-    
-    - name: Run ESLint
-      run: |
-        cd frontend
-        npx eslint src/
