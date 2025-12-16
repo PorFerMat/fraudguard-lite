@@ -4,6 +4,7 @@ from datetime import datetime
 import random
 import json
 import os
+from synthetic_data import generate_transaction_history
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for React frontend
