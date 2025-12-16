@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # ==============================
+  # Backend: Flask API Service
+  # ==============================
+  backend:
+    build: ./backend  # This tells Docker to build an image using the Dockerfile in the 'backend' folder
+    container_name: fraudguard-backend
+    ports:
+      - "5000:5000"   # Maps host port 5000 to container port 5000 (http://localhost:5000)
+    environment:
+      - FLASK_ENV=development
+    volumes:
+      - ./backend:/app  # Mounts your local backend code into the container for live updates
+    networks:
+      - fraudguard-network
+
+  # ==============================
+  # Frontend: React App Service
+  # ==============================
+  frontend:
+    build: ./frontend # This tells Docker to build an image using the Dockerfile in the 'frontend' folder
+    container_name: fraudguard-frontend
+    ports:
+      - "3000:3000"   # Maps host port 3000 to container port 3000 (http://localhost:3000)
+    environment:
+      - REACT_APP_API_URL=http://backend:5000 # Critical: Tells React where to find the backend *inside* the Docker network
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # Prevents host node_modules from overwriting container's
+    depends_on:
+      - backend # Ensures the backend starts before the frontend
+    networks:
+      - fraudguard-network
+
+# ==============================
+# Docker Network for Communication
+# ==============================
+networks:
+  fraudguard-network:
+    driver: bridge
